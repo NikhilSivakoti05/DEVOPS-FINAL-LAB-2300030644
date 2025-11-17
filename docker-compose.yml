@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: sql@1234
+      MYSQL_DATABASE: klustudentdbp
+    ports:
+      - "3307:3306"
+
+  backend:
+    image: nikhilsivakoti/2300030644-lab-backend:latest
+    ports:
+      - "30072:30070"
+    depends_on:
+      - mysqldb
+
+  frontend:
+    image: nikhilsivakoti/2300030644-lab-frontend:latest
+    ports:
+      - "30071:80"
+    depends_on:
+      - backend
